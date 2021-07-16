@@ -8,4 +8,11 @@
 
 # Development Process
 
-1.
+-  Please read the comoments in app.js to know the functionality.
+   (I made as thorough as possible to elaborate in detail.)
+
+# Conclusion
+
+-  Save data in the browser: local storage.
+-  Local storage only saves the text or string.
+-
