@@ -3,11 +3,13 @@ const toDoList = document.getElementById("todo-list");
 
 // find the first input inside the toDoForm.
 const toDoInput = toDoForm.querySelector("input");
-const toDos = [];
+
+const TODOS_KEY = "todos";
+let toDos = [];
 
 // saves the toDos array into the localStorage of a browser. (NOTE: it takes in "todos" as a key and array of string values as a whole string delimited by commas.)
 function saveToDos() {
-   localStorage.setItem("todos", JSON.stringify(toDos));
+   localStorage.setItem(TODOS_KEY, JSON.stringify(toDos));
    // save the value as an array format yet still it is a string.
 }
 
@@ -49,4 +51,14 @@ function handletoDoSubmit(event) {
 
 toDoForm.addEventListener("submit", handletoDoSubmit);
 
-const savedToDos = localStorage.getItem();
+// get the savedToDos from the localStorage.
+const savedToDos = localStorage.getItem(TODOS_KEY);
+
+if (savedToDos !== null) {
+   // turn the saved ToDo string into a live object
+
+   const parsedToDos = JSON.parse(savedToDos);
+   toDos = parsedToDos;
+   // paint each item todo.
+   parsedToDos.forEach(paintToDo);
+}
