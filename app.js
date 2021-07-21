@@ -16,16 +16,21 @@ function saveToDos() {
 function deleteToDo(event) {
    // Get the parentNode of a button and delete.
    const li = event.target.parentElement;
+   console.log(li.id);
    li.remove();
+   // keep the ones that are not selected to delete.
+   toDos = toDos.filter((toDo) => toDo.id !== parseInt(li.id));
+   saveToDos();
 }
 
 function paintToDo(newTodo) {
    // create a new HTML element (li and span) with the text parameter newTodo.
    const li = document.createElement("li");
+   li.id = newTodo.id;
    const span = document.createElement("span");
-   span.innerText = newTodo;
+   span.innerText = newTodo.text;
    const deleteButton = document.createElement("button");
-   deleteButton.innerText = "❌";
+   deleteButton.innerText = " ❌";
    deleteButton.addEventListener("click", deleteToDo);
    li.appendChild(span);
    li.appendChild(deleteButton);
@@ -43,9 +48,14 @@ function handletoDoSubmit(event) {
    // Assign the input value to a constant newTodo and delete the input value.
    const newTodo = toDoInput.value;
    toDoInput.value = "";
-   // push the value of a textbox to the array.
-   toDos.push(newTodo);
-   paintToDo(newTodo);
+   // create newTodoObj that contains text and id.
+   const newTodoObj = {
+      text: newTodo,
+      id: Date.now(),
+   };
+   //
+   toDos.push(newTodoObj);
+   paintToDo(newTodoObj);
    saveToDos();
 }
 
@@ -62,3 +72,6 @@ if (savedToDos !== null) {
    // paint each item todo.
    parsedToDos.forEach(paintToDo);
 }
+
+// filter will filter item that returns false.
+// filter does not return a previous array.
